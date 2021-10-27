@@ -14,7 +14,7 @@ import { Button, Card, CardBody, CardTitle } from "reactstrap";
 //Note: Form
 function UserSignupForm({registerUser}) {
 
-    const INITIAL_DATA: UserSignupInterface = {
+    const INITIAL_DATA:UserSignupInterface= {
         username: "elies",
         firstName: "elie",
         lastName: "schopik",
@@ -23,15 +23,10 @@ function UserSignupForm({registerUser}) {
         interests: "teaching",
         zipCode: "12345",
         image: "",
-        password: "password",
-        file:{},
-        fileName:""
+        password: "password"
     }
-    //refactor: so that file and fileName don't have to be included because they should be optional.
-    //Next Step: add console logs in the handle submit to make sure we are getting what we expect.
     const [formData, setFormData] = useState(INITIAL_DATA);
     const [fileData, setFileData] = useState(null);
-    // const [fileName, setFileName] = useState(null);
     console.log("* UserSignUp Form", formData)
 
 
@@ -46,7 +41,6 @@ function UserSignupForm({registerUser}) {
     }
 
     function handleFileChange(evt) {
-        // setFileName(evt.target.value);
         setFileData(evt.target.files[0]);
         handleChange(evt); //refactor: remove image key/value pair
     }
@@ -54,15 +48,18 @@ function UserSignupForm({registerUser}) {
     /**Handle submit of form, register user or return error if any */
     async function handleSubmit(evt) {
         evt.preventDefault();
+        const data = new FormData()
+
+        for(let input in formData){
+            data.append(input,formData[input])
+        };
+
+        data.append('file',fileData)
+
         console.log("Check out state on form submit", formData);
-        //TODO: Add image data to formData before registering the user
-        // in the register user store the image in s3 and store image name in database
-        formData["file"]=fileData;
-        formData["fileName"]=fileData.name;
+        
 
-
-        await registerUser(formData)
-        // do something with the data submitted
+        await registerUser(data)
         //TODO: try/catch with register user and handle errors
         setFormData(INITIAL_DATA);
     }
