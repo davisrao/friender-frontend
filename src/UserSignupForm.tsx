@@ -12,7 +12,7 @@ import { Button, Card, CardBody, CardTitle } from "reactstrap";
  */
 
 //Note: Form
-function UserSignupForm() {
+function UserSignupForm({registerUser}) {
 
     const INITIAL_DATA: UserSignupInterface = {
         username: "",
@@ -38,21 +38,20 @@ function UserSignupForm() {
     }
 
     /**Handle submit of form, register user or return error if any */
-    function handleSubmit(evt) {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        setFormData(INITIAL_DATA);
-        console.log("Check out state ->", formData);
+        console.log("Check out state on form submit", formData);
+
+        await registerUser(formData)
         // do something with the data submitted
         //TODO: try/catch with register user and handle errors
+        setFormData(INITIAL_DATA);
     }
 
     return (
-        // <Card>
-        //     <CardBody>
+
                 <form onSubmit={handleSubmit}>
-                    {/* <CardTitle> */}
                         <label htmlFor="username">Username:</label>
-                    {/* </CardTitle> */}
                     <input
                         id="username"
                         name="username"
@@ -120,8 +119,7 @@ function UserSignupForm() {
                     />
                     <button>Sign Up!</button>
                 </form>
-        //     </CardBody>
-        // </Card>
+
     );
 }
 
