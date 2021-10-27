@@ -15,32 +15,51 @@ import { Button, Card, CardBody, CardTitle } from "reactstrap";
 function UserSignupForm({registerUser}) {
 
     const INITIAL_DATA: UserSignupInterface = {
-        username: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        hobbies: "",
-        interests: "",
-        zipCode: "",
+        username: "elies",
+        firstName: "elie",
+        lastName: "schopik",
+        email: "elie@rithm.com",
+        hobbies: "coding",
+        interests: "teaching",
+        zipCode: "12345",
         image: "",
-        password: ""
+        password: "password",
+        file:{},
+        fileName:""
     }
+    //refactor: so that file and fileName don't have to be included because they should be optional.
+    //Next Step: add console logs in the handle submit to make sure we are getting what we expect.
     const [formData, setFormData] = useState(INITIAL_DATA);
+    const [fileData, setFileData] = useState(null);
+    // const [fileName, setFileName] = useState(null);
     console.log("* UserSignUp Form", formData)
+
 
     /**Handle change on form*/
     function handleChange(evt) {
         const { name, value } = evt.target;
+        console.log("target.files: ", evt.target.files);
         setFormData(fData => ({
             ...fData,
             [name]: value,
         }));
     }
 
+    function handleFileChange(evt) {
+        // setFileName(evt.target.value);
+        setFileData(evt.target.files[0]);
+        handleChange(evt); //refactor: remove image key/value pair
+    }
+
     /**Handle submit of form, register user or return error if any */
     async function handleSubmit(evt) {
         evt.preventDefault();
         console.log("Check out state on form submit", formData);
+        //TODO: Add image data to formData before registering the user
+        // in the register user store the image in s3 and store image name in database
+        formData["file"]=fileData;
+        formData["fileName"]=fileData.name;
+
 
         await registerUser(formData)
         // do something with the data submitted
@@ -107,7 +126,7 @@ function UserSignupForm({registerUser}) {
                         name="image"
                         type="file"
                         value={formData.image}
-                        onChange={handleChange}
+                        onChange={handleFileChange}
                     />
                     <label htmlFor="password">Password:</label>
                     <input

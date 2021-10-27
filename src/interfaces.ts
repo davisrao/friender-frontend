@@ -7,5 +7,7 @@ export interface UserSignupInterface{
     interests:string,
     zipCode:string,
     image:string, 
-    password:string 
+    password:string, 
+    file?:object,
+    fileName?:string
 }
