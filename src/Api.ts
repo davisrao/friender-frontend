@@ -35,7 +35,7 @@ class FrienderApi {
   /**Registers user in database. 
    * Output: registered user
    * [
-        {
+        {   "user_id",
             "username",
             "first_name",
             "last_name",
@@ -55,52 +55,51 @@ class FrienderApi {
     return result.data;
   }
 
-  //   /**Pulls all drinks from database. 
-  //    * Output: array of all drink objects.
-  //    * [
-  //      {
-  //         "id": "martini",
-  //         "name": "Martini",
-  //         "description": "An ice-cold, refreshing classic.",
-  //         "recipe": "Mix 3 parts vodka & 1 part dry vermouth.",
-  //         "serve": "Serve very cold, straight up."
-  //       },...
-  //     ] */
-  //   static async getDrinks() {
-  //     const result = await axios.get(`${BASE_API_URL}/drinks`);
-  //     return result.data;
-  //   }
+  /**Gets user by user_id
+   * Input: userId  
+   * Output: user data LIKE:
+   *{"user": 
+        {  "username",
+            "first_name",
+            "last_name",
+            "email",
+            "hobbies",
+            "interests",
+            "zip_code",
+            "image"         
+        } 
+    }*/
+  static async getById(userId) {
+    const result = await axios.get(`${BASE_API_URL}/users/${userId}`);
+    return result.data;
+  }
 
-  //   /**Adds drink suggestion to database.
-  //    * Input: 
-  //     {
-  //       "id": "martini",
-  //       "name": "Martini",
-  //       "description": "An ice-cold, refreshing classic.",
-  //       "recipe": "Mix 3 parts vodka & 1 part dry vermouth.",
-  //       "serve": "Serve very cold, straight up."
-  //     }
-  //    * Output: "drinkName" */
-  //   static async addDrink(drinkSuggestion) {
-  //     const result = await axios.post(`${BASE_API_URL}/drinks`, drinkSuggestion);
-  //     return result.data.name;
-  //   }
+  /**deletes user based upon id
+  * Input: userId  
+  * Output: {"deleted": userId}*/
+  static async deleteById(userId) {
+    const result = await axios.delete(`${BASE_API_URL}/users/${userId}`);
+    return result.data;
+  }
 
-  //   /**Adds snack suggestion to database.
-  //    * Input: 
-  //       {
-  //         "id": "nachos",
-  //         "name": "Nachos",
-  //         "description": "An American classic!",
-  //         "recipe": "Cover expensive, organic tortilla chips with Cheez Whiz.",
-  //         "serve": "Serve in a hand-thrown ceramic bowl, garnished with canned black olives"
-  //       }
-  //   * Output: "snackName" */
-  //   static async addSnack(snackSuggestion) {
-  //     const result = await axios.post(`${BASE_API_URL}/snacks`, snackSuggestion);
-  //     return result.data.name;
-  //   }
+  /**deletes user based upon id
+  * Input: userId and newUserData LIKE {key,value} e.g. 
+  * {username: 'newUsername',
+  * hobbies:'new hobbies'
+  * } 
+  * Output: updated user data object {user:{username,first_name,......}}*/
+  static async updateUser(userId,newUserData) {
+    const result = await axios.patch(`${BASE_API_URL}/users/${userId}`, newUserData);
+    return result.data;
+  }
 
+  /**get all users in database
+  * Input: nothing
+  * Output: {users:{user},{user},{user},......}*/
+     static async getAll() {
+      const result = await axios.get(`${BASE_API_URL}/users`);
+      return result.data;
+    }
 }
 
 export default FrienderApi;
