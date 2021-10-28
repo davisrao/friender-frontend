@@ -1,5 +1,4 @@
-export interface UserSignupInterface{
-    username:string,
+export interface UserSignupInterface extends LoginInterface{
     firstName:string,
     lastName:string,
     email:string,
@@ -7,7 +6,9 @@ export interface UserSignupInterface{
     interests:string,
     zipCode:string,
     image:string, 
+}
+
+export interface LoginInterface{
+    username:string,
     password:string, 
-    file?:object,
-    fileName?:string
 }

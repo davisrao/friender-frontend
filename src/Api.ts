@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const BASE_API_URL: string = "http://localhost:5000/";
+const BASE_API_URL: string = "http://localhost:5000";
 
 
 /** bluerprint for making request 
@@ -33,7 +33,17 @@ class FrienderApi {
   //   }
   // }
 
+  /** Get token for login from username, password. */
 
+  static async login(data) {
+    let result = await axios.post(`${BASE_API_URL}/login`, data);
+    if (result.data.errors) {
+      throw new Error(result.data.errors);
+
+    } else {
+      return result.data.token;
+    }
+  }
 
   /**Registers user in database. 
    * Output: registered user
@@ -50,13 +60,13 @@ class FrienderApi {
         },...
       ] */
   static async registerUser(formData) {
-    const result = axios.post(`${BASE_API_URL}/users`, formData, {
+    const result = await axios.post(`${BASE_API_URL}/users`, formData, {
       headers: {
         Authorization: `Bearer ${FrienderApi.token}`,
         'Content-Type': 'multipart/form-data'
       }
     });
-    return result;
+    return result.data;
   }
 
   /**Gets user by user_id
@@ -74,24 +84,24 @@ class FrienderApi {
         } 
     }*/
   static async getById(userId) {
-    const result = axios.get(`${BASE_API_URL}/users/${userId}`, {
+    const result = await axios.get(`${BASE_API_URL}/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${FrienderApi.token}`
       }
     });
-    return result;
+    return result.data;
   }
 
   /**deletes user based upon id
   * Input: userId  
   * Output: {"deleted": userId}*/
   static async deleteById(userId) {
-    const result = axios.delete(`${BASE_API_URL}/users/${userId}`, {
+    const result = await axios.delete(`${BASE_API_URL}/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${FrienderApi.token}`
       }
     });
-    return result;
+    return result.data;
   }
 
   /**deletes user based upon id
@@ -101,24 +111,24 @@ class FrienderApi {
   * } 
   * Output: updated user data object {user:{username,first_name,......}}*/
   static async updateUser(userId, newUserData) {
-    const result = axios.patch(`${BASE_API_URL}/users/${userId}`, newUserData, {
+    const result = await axios.patch(`${BASE_API_URL}/users/${userId}`, newUserData, {
       headers: {
         Authorization: `Bearer ${FrienderApi.token}`
       }
     });
-    return result;
+    return result.data;
   }
 
   /**get all users in database
   * Input: nothing
   * Output: {users:{user},{user},{user},......}*/
   static async getAll() {
-    const result = axios.get(`${BASE_API_URL}/users`, {
+    const result = await axios.get(`${BASE_API_URL}/users`, {
       headers: {
         Authorization: `Bearer ${FrienderApi.token}`
       }
     });
-    return result;
+    return result.data;
   }
 }
 

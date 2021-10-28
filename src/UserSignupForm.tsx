@@ -27,6 +27,7 @@ function UserSignupForm({registerUser}) {
     }
     const [formData, setFormData] = useState(INITIAL_DATA);
     const [fileData, setFileData] = useState(null);
+    const [errors, setErrors] = useState(null);
     console.log("* UserSignUp Form", formData)
 
 
@@ -48,20 +49,22 @@ function UserSignupForm({registerUser}) {
     /**Handle submit of form, register user or return error if any */
     async function handleSubmit(evt) {
         evt.preventDefault();
-        const data = new FormData()
-
-        for(let input in formData){
-            data.append(input,formData[input])
-        };
-
-        data.append('file',fileData)
-
-        console.log("Check out state on form submit", formData);
+        try{
+            const data = new FormData()
+    
+            for(let input in formData){
+                data.append(input,formData[input])
+            };
+    
+            data.append('file',fileData)
+    
+            console.log("Check out state on form submit", formData);
         
-
-        await registerUser(data)
-        //TODO: try/catch with register user and handle errors
-        setFormData(INITIAL_DATA);
+            await registerUser(data)
+            setFormData(INITIAL_DATA);
+        } catch (err) {
+            setErrors(err.message);
+        }
     }
 
     return (
