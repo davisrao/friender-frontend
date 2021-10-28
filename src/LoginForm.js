@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { LoginInterface } from "./interfaces";
 import { Button, Card, CardBody, CardTitle } from "reactstrap";
+import { useHistory } from "react-router-dom";
 
 /** Form for logging in up a user.
  *
@@ -15,8 +15,9 @@ import { Button, Card, CardBody, CardTitle } from "reactstrap";
 
 //Note: Form
 function LoginForm({ loginUser }) {
+    const history = useHistory();
 
-    const INITIAL_DATA: LoginInterface = {
+    const INITIAL_DATA = {
         username: "elies",
         password: "password"
     }
@@ -39,6 +40,7 @@ function LoginForm({ loginUser }) {
         try{
             await loginUser(formData);
             setFormData(INITIAL_DATA);
+            history.push("/")
         } catch (err) {
             console.log("errors form Login Form: ", err["Error"]);
             setErrors(err);

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const BASE_API_URL: string = "http://localhost:5000";
+const BASE_API_URL = "http://localhost:5000";
 
 
 /** bluerprint for making request 
@@ -12,7 +12,7 @@ const BASE_API_URL: string = "http://localhost:5000";
 
 class FrienderApi {
 
-  static token: string;
+  static token;
 
   // static async request(endpoint, data = {}, method = "get", headers = {}) {
   //   console.debug("API Call:", endpoint, data, method, headers);
@@ -66,8 +66,13 @@ class FrienderApi {
         'Content-Type': 'multipart/form-data'
       }
     });
-    return result.data;
-  }
+
+    if(result.data.errors){
+      throw new Error(result.data.errors)
+    }
+
+    return result.data.token;
+  } 
 
   /**Gets user by user_id
    * Input: userId  

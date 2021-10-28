@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { UserSignupInterface } from "./interfaces";
 import { Button, Card, CardBody, CardTitle } from "reactstrap";
+import { useHistory } from "react-router-dom";
 /** Form for signing up a user.
  *
  * props:
@@ -13,8 +13,8 @@ import { Button, Card, CardBody, CardTitle } from "reactstrap";
 
 //Note: Form
 function UserSignupForm({registerUser}) {
-
-    const INITIAL_DATA:UserSignupInterface= {
+    const history = useHistory();
+    const INITIAL_DATA= {
         username: "elies",
         firstName: "elie",
         lastName: "schopik",
@@ -49,21 +49,22 @@ function UserSignupForm({registerUser}) {
     /**Handle submit of form, register user or return error if any */
     async function handleSubmit(evt) {
         evt.preventDefault();
-        try{
-            const data = new FormData()
-    
-            for(let input in formData){
-                data.append(input,formData[input])
-            };
-    
-            data.append('file',fileData)
-    
-            console.log("Check out state on form submit", formData);
+        const data = new FormData()
         
+        for(let input in formData){
+            data.append(input,formData[input])
+        };
+        
+        data.append('file',fileData)
+        
+        console.log("Check out state on form submit", formData);
+        
+        try{
             await registerUser(data)
             setFormData(INITIAL_DATA);
+            history.push("/")
         } catch (err) {
-            setErrors(err.message);
+            setErrors(err);
         }
     }
 
@@ -137,6 +138,7 @@ function UserSignupForm({registerUser}) {
                         onChange={handleChange}
                     />
                     <button>Sign Up!</button>
+                    {errors && <p>{errors.toString()}</p>}
                 </form>
 
     );
