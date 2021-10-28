@@ -11,7 +11,8 @@ async function registerUser(formData){
   //makes API  call to sign up the user
   //returns error if doesn't work
     const resp = await FrienderApi.registerUser(formData);
-    console.log(resp)
+
+    console.log(resp);
 }
 
 

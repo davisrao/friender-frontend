@@ -1,34 +1,37 @@
 import axios from "axios";
 
 
-const BASE_API_URL = "http://localhost:5000";
+const BASE_API_URL: string = "http://localhost:5000/";
 
 
 /** bluerprint for making request 
  * accepts endpoint for request, data, method(default to get)
+ * automatically includes token
  * returns response wrapped in try/catch
 */
 
 class FrienderApi {
 
-  // static async request(endpoint, data = {}, method = "get") {
-  //     console.debug("API Call:", endpoint, data, method);
+  static token: string;
 
-  //     const url = `${BASE_URL}/${endpoint}`;
-  //     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-  //     const params = (method === "get")
-  //       ? data
-  //       : {};
+  // static async request(endpoint, data = {}, method = "get", headers = {}) {
+  //   console.debug("API Call:", endpoint, data, method, headers);
 
-  //     console.log({ url, data, params, headers, method })
-  //     try {
-  //       return (await axios({ url, method, data, params, headers })).data;
-  //     } catch (err) {
-  //       console.error("API Error:", err.response);
-  //       let message = err.response.data.error.message;
-  //       throw Array.isArray(message) ? message : [message];
-  //     }
+  //   const url = `${BASE_API_URL}/${endpoint}`;
+  //   headers["Authorization"] = `Bearer ${FrienderApi.token}`;
+  //   const params = (method === "get")
+  //     ? data
+  //     : {};
+
+  //   console.log("making API call now:", { url, data, params, headers, method })
+  //   try {
+  //     return (await axios(url, { method: "get", data, params, headers })).data;
+  //   } catch (err) {
+  //     console.error("API Error:", err.response);
+  //     let message = err.response.data.error.message;
+  //     throw Array.isArray(message) ? message : [message];
   //   }
+  // }
 
 
 
@@ -47,12 +50,13 @@ class FrienderApi {
         },...
       ] */
   static async registerUser(formData) {
-    const result = await axios.post(`${BASE_API_URL}/users`, formData, {
+    const result = axios.post(`${BASE_API_URL}/users`, formData, {
       headers: {
+        Authorization: `Bearer ${FrienderApi.token}`,
         'Content-Type': 'multipart/form-data'
       }
     });
-    return result.data;
+    return result;
   }
 
   /**Gets user by user_id
@@ -70,16 +74,24 @@ class FrienderApi {
         } 
     }*/
   static async getById(userId) {
-    const result = await axios.get(`${BASE_API_URL}/users/${userId}`);
-    return result.data;
+    const result = axios.get(`${BASE_API_URL}/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${FrienderApi.token}`
+      }
+    });
+    return result;
   }
 
   /**deletes user based upon id
   * Input: userId  
   * Output: {"deleted": userId}*/
   static async deleteById(userId) {
-    const result = await axios.delete(`${BASE_API_URL}/users/${userId}`);
-    return result.data;
+    const result = axios.delete(`${BASE_API_URL}/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${FrienderApi.token}`
+      }
+    });
+    return result;
   }
 
   /**deletes user based upon id
@@ -88,18 +100,26 @@ class FrienderApi {
   * hobbies:'new hobbies'
   * } 
   * Output: updated user data object {user:{username,first_name,......}}*/
-  static async updateUser(userId,newUserData) {
-    const result = await axios.patch(`${BASE_API_URL}/users/${userId}`, newUserData);
-    return result.data;
+  static async updateUser(userId, newUserData) {
+    const result = axios.patch(`${BASE_API_URL}/users/${userId}`, newUserData, {
+      headers: {
+        Authorization: `Bearer ${FrienderApi.token}`
+      }
+    });
+    return result;
   }
 
   /**get all users in database
   * Input: nothing
   * Output: {users:{user},{user},{user},......}*/
-     static async getAll() {
-      const result = await axios.get(`${BASE_API_URL}/users`);
-      return result.data;
-    }
+  static async getAll() {
+    const result = axios.get(`${BASE_API_URL}/users`, {
+      headers: {
+        Authorization: `Bearer ${FrienderApi.token}`
+      }
+    });
+    return result;
+  }
 }
 
 export default FrienderApi;
