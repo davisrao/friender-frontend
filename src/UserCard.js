@@ -17,7 +17,7 @@ function UserCard({ addAction, cardUserData }) {
         
     async function handlePass(){
         console.log("handle pass ran!")
-        await addAction(userData.user_id,cardUserData.user_id,"Pass")
+        await addAction(userData.user.user_id,cardUserData.user_id,"Pass")
     };
     return (
         <i className="card col-2 m-3 d-inline-block justify-content-center shadow p-3 mb-5 bg-white rounded">
@@ -26,8 +26,8 @@ function UserCard({ addAction, cardUserData }) {
             <ul className="card-body">
                 <li className="card-list m-2"><b>Interests:</b> {cardUserData.interests}</li>
                 <li className="card-list m-2"><b>Hobbies:</b> {cardUserData.hobbies}</li>
-                <FontAwesomeIcon onClick={handleLike} className="card-icon fa-lg m-3" icon={faUserPlus} />
-                <FontAwesomeIcon onClick={handlePass}className="card-icon fa-lg m-3" icon={faUserMinus} />
+                <FontAwesomeIcon onClick={handleLike} className="card-icon card-like fa-lg m-3" icon={faUserPlus} />
+                <FontAwesomeIcon onClick={handlePass}className="card-icon card-pass fa-lg m-3" icon={faUserMinus} />
             </ul>
         </i>
 

@@ -17,8 +17,8 @@ function LoginForm({ loginUser }) {
     const history = useHistory();
 
     const INITIAL_DATA = {
-        username: "elies",
-        password: "password"
+        username: "",
+        password: ""
     }
     const [formData, setFormData] = useState(INITIAL_DATA);
     const [errors, setErrors] = useState(null);
