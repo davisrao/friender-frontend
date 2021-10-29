@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "./UserContext";
+import "./Navigation.css";
 
 /** Component for navigating
  *
@@ -27,12 +28,13 @@ function Navigation({ handleLogout }) {
 
   return (
     <div className="row">
-        <nav className="Navigation bg-primary d-flex">
-          <div className="mr-auto p-2">
-            <NavLink exact to="/" >
-              Friender Home
-            </NavLink>
-          </div>
+      <nav className="Navigation bg-secondary d-flex">
+        <div className="mr-auto p-2">
+          <NavLink exact to="/" >
+            Friender Home
+          </NavLink>
+        </div>
+        {!userData && <div>
           <div className="p-2">
             <NavLink exact to="/login" >
               Log In
@@ -43,7 +45,8 @@ function Navigation({ handleLogout }) {
               Sign Up
             </NavLink>
           </div>
-        </nav>
+        </div>}
+      </nav>
     </div>
   );
 }

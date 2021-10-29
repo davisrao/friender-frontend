@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import Routes from './Routes';
 import UserContext from './UserContext';
 import Navigation from './Navigation';
+import "bootstrap/dist/css/bootstrap.css";
 
 
 
@@ -18,7 +19,7 @@ function App() {
 
   const [userData, setUserData] = useState(null);
   const [token, setToken] = useState(null);
-  const [infoLoaded, setInfoLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [redirectRequired, setRedirectRequired] = useState(false);
 
   console.log("* App", { userData, token });
@@ -37,9 +38,8 @@ function App() {
         setUserData(userResponse);
         console.log("USE EFFECT", {userResponse, userData, token})
       };
-      setInfoLoaded(true);
+      setIsLoading(false);
     }
-    setInfoLoaded(false);
     updateUserData();
   }, [token]);
 
@@ -61,6 +61,7 @@ function App() {
   }
 
 
+
   /** Sets token to be an empty string
  * 
 */
@@ -69,12 +70,12 @@ function App() {
     setUserData(null);
   }
 
-  if (!infoLoaded) {
+  if (isLoading) {
     return <i>Loading...</i>
   };
   console.log("right before app.js render",userData)
   return (
-    <div className="App">
+    <div className="App container-fluid">
       <BrowserRouter>
         <UserContext.Provider value={userData}>
           <Navigation handleLogout={handleLogout} />

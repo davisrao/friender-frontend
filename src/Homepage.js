@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import PotentialMatches from "./PotentialMatches";
 import UserContext from "./UserContext";
 
 /** Renders the homepage
@@ -22,13 +23,15 @@ function Homepage() {
     return (
         <div className="row min-vh-100 align-items-center">
             <div className="Homepage">
-                <h1 className="Homepage-header">Friender!</h1>
-                <p className="Homepage-tagline">
-                    Meet some people</p>
-                {userData && 
-                <div>
-                <h2>Welcome back, {userData.user.first_name}</h2>
-                <img src={userData.user.image} alt="profile pic"></img>
+                {!userData &&
+                    <div>
+                        <h1 className="Homepage-header">Friender!</h1>
+                        <p className="Homepage-tagline">
+                            Meet some people</p>
+                    </div>}
+                {userData && <div className="row">
+                    <h1>Find Some Matches</h1>
+                    <PotentialMatches />
                 </div>}
             </div>
         </div>

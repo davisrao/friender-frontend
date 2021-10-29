@@ -135,6 +135,16 @@ class FrienderApi {
     });
     return result.data;
   }
+
+  static async getPotentialMatches(zipCode){
+    console.log("is the zip going in right? ", zipCode);
+    const result = await axios.get(`${BASE_API_URL}/potentials/${zipCode}`, {
+      headers: {
+        Authorization: `Bearer ${FrienderApi.token}`
+      }
+    });
+    return result.data;
+  }
 }
 
 export default FrienderApi;
