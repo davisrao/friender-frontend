@@ -136,9 +136,9 @@ class FrienderApi {
     return result.data;
   }
 
-  static async getPotentialMatches(zipCode){
+  static async getPotentialMatches(userId, zipCode){
     console.log("is the zip going in right? ", zipCode);
-    const result = await axios.get(`${BASE_API_URL}/potentials/${zipCode}`, {
+    const result = await axios.get(`${BASE_API_URL}/potentials/${userId}/${zipCode}`, {
       headers: {
         Authorization: `Bearer ${FrienderApi.token}`
       }

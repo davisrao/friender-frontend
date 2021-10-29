@@ -48,7 +48,7 @@ function App() {
     //makes API  call to sign up the user
     //returns error if doesn't work
     const resp = await FrienderApi.registerUser(formData);
-
+    setToken(resp);
     console.log(resp);
   }
 

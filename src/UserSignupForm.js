@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, CardBody, CardTitle } from "reactstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 /** Form for signing up a user.
  *
  * props:
@@ -12,9 +11,9 @@ import { useHistory } from "react-router-dom";
  */
 
 //Note: Form
-function UserSignupForm({registerUser}) {
+function UserSignupForm({ registerUser }) {
     const history = useHistory();
-    const INITIAL_DATA= {
+    const INITIAL_DATA = {
         username: "elies",
         firstName: "elie",
         lastName: "schopik",
@@ -50,97 +49,126 @@ function UserSignupForm({registerUser}) {
     async function handleSubmit(evt) {
         evt.preventDefault();
         const data = new FormData()
-        
-        for(let input in formData){
-            data.append(input,formData[input])
+
+        for (let input in formData) {
+            data.append(input, formData[input])
         };
-        
-        data.append('file',fileData)
-        
+
+        data.append('file', fileData)
+
         console.log("Check out state on form submit", formData);
-        
-        try{
+
+        try {
             await registerUser(data)
             setFormData(INITIAL_DATA);
-            history.push("/")
+
+            return <Redirect to="/" />
+            // history.push("/");
         } catch (err) {
             setErrors(err);
         }
     }
 
     return (
-
-                <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">Username:</label>
+        <div className="row justify-content-center">
+            <h1 className="m-4">Sign Up!</h1>
+            <form className="col-8 border" onSubmit={handleSubmit}>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="username">Username:</label>
                     <input
+                        className="col-4"
                         id="username"
                         name="username"
                         value={formData.username}
                         onChange={handleChange}
                     />
-                    <label htmlFor="firstName">First:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="firstName">First:</label>
                     <input
+                        className="col-4"
                         id="firstName"
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
                     />
-
-                    <label htmlFor="lastName">Last:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="lastName">Last:</label>
                     <input
+                        className="col-4"
                         id="lastName"
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleChange}
                     />
-                    <label htmlFor="email">Email:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="email">Email:</label>
                     <input
+                        className="col-4"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                     />
-                    <label htmlFor="hobbies">Hobbies:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="hobbies">Hobbies:</label>
                     <textarea
+                        className="col-4"
                         id="hobbies"
                         name="hobbies"
                         value={formData.hobbies}
                         onChange={handleChange}
                     />
-                    <label htmlFor="interests">Interests:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="interests">Interests:</label>
                     <textarea
+                        className="col-4"
                         id="interests"
                         name="interests"
                         value={formData.interests}
                         onChange={handleChange}
                     />
-                    <label htmlFor="zipCode">Zip Code:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="zipCode">Zip Code:</label>
                     <input
+                        className="col-4"
                         id="zipCode"
                         name="zipCode"
                         value={formData.zipCode}
                         onChange={handleChange}
                     />
-                    <label htmlFor="image">Image:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="image">Image:</label>
                     <input
+                        className="col-4"
                         id="image"
                         name="image"
                         type="file"
                         value={formData.image}
                         onChange={handleFileChange}
                     />
-                    <label htmlFor="password">Password:</label>
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="password">Password:</label>
                     <input
+                        className="col-4"
                         id="password"
                         name="password"
                         type="password"
                         value={formData.password}
                         onChange={handleChange}
                     />
-                    <button>Sign Up!</button>
-                    {errors && <p>{errors.toString()}</p>}
-                </form>
-
+                </div>
+                <button className="mt-4">Sign Up!</button>
+                {errors && <p>{errors.toString()}</p>}
+            </form>
+        </div>
     );
 }
 

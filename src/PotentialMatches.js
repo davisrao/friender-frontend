@@ -37,7 +37,7 @@ function PotentialMatches() {
   useEffect(function fetchPotentialsWhenMounted() {
     async function fetchPotentials() {
       console.log("userData from Potential Matches: ", userData);
-      let response = await FrienderApi.getPotentialMatches(userData.user.zip_code);
+      let response = await FrienderApi.getPotentialMatches( userData.user.user_id,userData.user.zip_code);
       setPotentialMatchesData(response.users);
       setIsLoading(false);
     }
@@ -55,7 +55,10 @@ function PotentialMatches() {
 
   return (
     <div className="PotentialMatches row justify-content-center">
-      <h1>Find Some Matches in Your Zip!</h1>
+      {potentialMatchesData.length>0
+      ? <h1 className="mt-4">Find Some Matches in Your Zip!</h1>
+      :<h1 className="mt-4">Out of matches. Come back soon!</h1>
+      }
       {potentialMatchesData.map((p,i) => <UserCard key={i} addAction={addAction} cardUserData={p} />)}
     </div>
   );

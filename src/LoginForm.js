@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Card, CardBody, CardTitle } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 /** Form for logging in up a user.
@@ -37,7 +36,7 @@ function LoginForm({ loginUser }) {
     /**Handle submit of form, register user or return error if any */
     async function handleSubmit(evt) {
         evt.preventDefault();
-        try{
+        try {
             await loginUser(formData);
             setFormData(INITIAL_DATA);
             history.push("/")
@@ -49,27 +48,34 @@ function LoginForm({ loginUser }) {
 
     console.log("Errors right before return: ", errors);
     return (
-
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-            <input
-                id="username"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-            />
-            
-            <label htmlFor="password">Password:</label>
-            <input
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-            />
-            <button>Login!</button>
-            {errors && <p>{errors.toString()}</p>}
-        </form>
+        <div className="row justify-content-center">
+            <h1 className="m-4">Log In!</h1>
+            <form className="col-8 border" onSubmit={handleSubmit}>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="username">Username:</label>
+                    <input
+                        className="col-4"
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group mt-4">
+                    <label className="col-12" htmlFor="password">Password:</label>
+                    <input
+                        className="col-4"
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button className="m-4">Login!</button>
+                {errors && <p>{errors.toString()}</p>}
+            </form>
+        </div >
     );
 }
 
