@@ -29,22 +29,22 @@ function Navigation({ handleLogout }) {
   return (
     <div className="row">
       <nav className="Navigation bg-secondary d-flex">
-        <div className="mr-auto p-2">
+        <span className="p-2">
           <NavLink exact to="/" >
             Friender Home
           </NavLink>
-        </div>
+        </span>
         {!userData && <div>
-          <div className="p-2">
+          <span className="p-2">
             <NavLink exact to="/login" >
               Log In
             </NavLink>
-          </div>
-          <div className="p-2">
+          </span>
+          <span className="p-2">
             <NavLink exact to="/signup" >
               Sign Up
             </NavLink>
-          </div>
+          </span>
         </div>}
       </nav>
     </div>

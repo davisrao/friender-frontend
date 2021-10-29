@@ -27,6 +27,13 @@ function PotentialMatches() {
   const [isLoading, setIsLoading] = useState(true);
   const userData = useContext(UserContext);
 
+  /**function to add action to DB */
+  async function addAction(actingUserId,targetedUserId,action){
+    const response = await FrienderApi.addAction(actingUserId,targetedUserId,action);
+    setIsLoading(true);
+  }
+
+
   useEffect(function fetchPotentialsWhenMounted() {
     async function fetchPotentials() {
       console.log("userData from Potential Matches: ", userData);
@@ -35,7 +42,7 @@ function PotentialMatches() {
       setIsLoading(false);
     }
     fetchPotentials();
-  }, []);
+  }, [isLoading]);
 
   // try {
 
@@ -47,8 +54,9 @@ function PotentialMatches() {
   };
 
   return (
-    <div className="PotentialMatches row">
-      {potentialMatchesData.map(p => <UserCard userData={p} />)}
+    <div className="PotentialMatches row justify-content-center">
+      <h1>Find Some Matches in Your Zip!</h1>
+      {potentialMatchesData.map((p,i) => <UserCard key={i} addAction={addAction} cardUserData={p} />)}
     </div>
   );
 }

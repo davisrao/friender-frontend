@@ -30,7 +30,6 @@ function Homepage() {
                             Meet some people</p>
                     </div>}
                 {userData && <div className="row">
-                    <h1>Find Some Matches</h1>
                     <PotentialMatches />
                 </div>}
             </div>

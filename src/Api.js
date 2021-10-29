@@ -145,6 +145,21 @@ class FrienderApi {
     });
     return result.data;
   }
+
+
+  static async addAction(actingUserId,targetedUserId,action){
+    const requestData = {
+                        "acting_user_id": actingUserId,
+                        "targeted_user_id":targetedUserId,
+                        "action":action
+                        }
+    const result = await axios.post(`${BASE_API_URL}/action`, requestData, {
+      headers: {
+        Authorization: `Bearer ${FrienderApi.token}`
+      }
+    });
+    return result.data;
+  }
 }
 
 export default FrienderApi;

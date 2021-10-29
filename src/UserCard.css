@@ -1,0 +1,14 @@
+.card-img-top {
+    width: 100px;
+    height: 100px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius:10%;
+  }
+
+  .card-list{
+      list-style-type: none;
+  }
+  .card-icon:hover{
+      cursor: pointer;
+  }
