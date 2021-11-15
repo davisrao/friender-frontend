@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory, Redirect } from "react-router-dom";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 /** Form for signing up a user.
  *
  * props:
@@ -10,19 +10,19 @@ import { useHistory, Redirect } from "react-router-dom";
  * Homepage => {UserSignupForm}
  */
 
-//Note: Form
+
 function UserSignupForm({ registerUser }) {
     const history = useHistory();
     const INITIAL_DATA = {
-        username: "elies",
-        firstName: "elie",
-        lastName: "schopik",
-        email: "elie@rithm.com",
-        hobbies: "coding",
-        interests: "teaching",
-        zipCode: "12345",
+        username: "1",
+        firstName: "1",
+        lastName: "1",
+        email: "1@1.com",
+        hobbies: "1",
+        interests: "1",
+        zipCode: "1",
         image: "",
-        password: "password"
+        password: "12345678"
     }
     const [formData, setFormData] = useState(INITIAL_DATA);
     const [fileData, setFileData] = useState(null);
@@ -61,9 +61,7 @@ function UserSignupForm({ registerUser }) {
         try {
             await registerUser(data)
             setFormData(INITIAL_DATA);
-
-            return <Redirect to="/" />
-            // history.push("/");
+            history.push("/");
         } catch (err) {
             setErrors(err);
         }

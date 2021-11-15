@@ -2,6 +2,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import UserSignupForm from "./UserSignupForm";
 import Homepage from "./Homepage";
+import MatchList from "./MatchList";
 
 
 /** Routes for App
@@ -27,6 +28,9 @@ function Routes({ registerUser, loginUser }) {
       </Route>
       <Route exact path="/signup">
         <UserSignupForm registerUser={registerUser} />
+      </Route>
+      <Route exact path="/matches">
+        <MatchList/>
       </Route>
       <Redirect to="/" />
     </Switch>

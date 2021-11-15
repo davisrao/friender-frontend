@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import UserSignupForm from './UserSignupForm';
 import FrienderApi from "./Api"
-import LoginForm from './LoginForm';
 import jwt from "jsonwebtoken";
 import { BrowserRouter } from "react-router-dom";
 import Routes from './Routes';

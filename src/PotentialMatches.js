@@ -3,7 +3,7 @@ import FrienderApi from "./Api";
 import UserContext from "./UserContext";
 import UserCard from "./UserCard";
 
-/** Order entering system before it ships.
+/** Page for potential matches to show.
  *
  * Props:
  * - none
@@ -27,6 +27,8 @@ function PotentialMatches() {
   const [isLoading, setIsLoading] = useState(true);
   const userData = useContext(UserContext);
 
+  console.log({errors,potentialMatchesData,isLoading,userData})
+
   /**function to add action to DB */
   async function addAction(actingUserId,targetedUserId,action){
     const response = await FrienderApi.addAction(actingUserId,targetedUserId,action);
@@ -44,22 +46,19 @@ function PotentialMatches() {
     fetchPotentials();
   }, [isLoading]);
 
-  // try {
-
-  // } catch (err) {
-  //   setErrors(err);
-  // }
   if (isLoading) {
     return <i>Loading...</i>
   };
 
   return (
     <div className="PotentialMatches row justify-content-center">
-      {potentialMatchesData.length>0
-      ? <h1 className="mt-4">Find Some Matches in Your Zip!</h1>
-      :<h1 className="mt-4">Out of matches. Come back soon!</h1>
+      {potentialMatchesData[0] === undefined
+      ?<h1 className="mt-4">Out of potential friends. Come back soon!</h1>
+      :<div>
+      <h1 className="mt-4">Find Some Matches in Your Zip!</h1>
+      <UserCard addAction={addAction} cardUserData={potentialMatchesData[0]} />
+      </div> 
       }
-      {potentialMatchesData.map((p,i) => <UserCard key={i} addAction={addAction} cardUserData={p} />)}
     </div>
   );
 }

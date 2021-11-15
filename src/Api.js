@@ -138,6 +138,7 @@ class FrienderApi {
 
   static async getPotentialMatches(userId, zipCode){
     console.log("is the zip going in right? ", zipCode);
+    //this is the wrong route, need to take out user ID
     const result = await axios.get(`${BASE_API_URL}/potentials/${userId}/${zipCode}`, {
       headers: {
         Authorization: `Bearer ${FrienderApi.token}`
@@ -160,6 +161,21 @@ class FrienderApi {
     });
     return result.data;
   }
+
+  static async getAllMatches(userId){
+    const result = await axios.get(`${BASE_API_URL}/${userId}/matches`, {
+      headers: {
+        Authorization: `Bearer ${FrienderApi.token}`
+      }
+    });
+    console.log(result.data)
+    return result.data;
+  }
+
 }
+
+
+
+
 
 export default FrienderApi;

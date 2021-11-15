@@ -1,4 +1,4 @@
-import { NavLink,Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "./UserContext";
 import "./Navigation.css";
@@ -34,6 +34,12 @@ function Navigation({ handleLogout }) {
             Friender Home
           </NavLink>
         </span>
+        {userData && <span className="p-2">
+          <NavLink exact to="/matches" >
+            My Matches
+          </NavLink>
+        </span>
+        }
         {!userData && <div>
           <span className="p-2">
             <NavLink exact to="/login" >
