@@ -14,27 +14,7 @@ class FrienderApi {
 
   static token;
 
-  // static async request(endpoint, data = {}, method = "get", headers = {}) {
-  //   console.debug("API Call:", endpoint, data, method, headers);
-
-  //   const url = `${BASE_API_URL}/${endpoint}`;
-  //   headers["Authorization"] = `Bearer ${FrienderApi.token}`;
-  //   const params = (method === "get")
-  //     ? data
-  //     : {};
-
-  //   console.log("making API call now:", { url, data, params, headers, method })
-  //   try {
-  //     return (await axios(url, { method: "get", data, params, headers })).data;
-  //   } catch (err) {
-  //     console.error("API Error:", err.response);
-  //     let message = err.response.data.error.message;
-  //     throw Array.isArray(message) ? message : [message];
-  //   }
-  // }
-
   /** Get token for login from username, password. */
-
   static async login(data) {
     let result = await axios.post(`${BASE_API_URL}/login`, data);
     if (result.data.errors) {
@@ -135,7 +115,10 @@ class FrienderApi {
     });
     return result.data;
   }
-
+  
+  /**get potential matches for user
+  * Input: userId, Zip COde
+  * Output users that this person can act upon: {users:{user},{user},{user},......}*/
   static async getPotentialMatches(userId, zipCode){
     console.log("is the zip going in right? ", zipCode);
     //this is the wrong route, need to take out user ID
@@ -147,7 +130,9 @@ class FrienderApi {
     return result.data;
   }
 
-
+  /**add "action" to database
+  * Input: acting user id, targeted user id, action (like. pass, etc)
+  * Output the serialized action*/
   static async addAction(actingUserId,targetedUserId,action){
     const requestData = {
                         "acting_user_id": actingUserId,
@@ -162,6 +147,9 @@ class FrienderApi {
     return result.data;
   }
 
+  /**get all matches for a user
+  * Input: userId
+  * Output user matches: {users:{user},{user},{user},......}*/
   static async getAllMatches(userId){
     const result = await axios.get(`${BASE_API_URL}/${userId}/matches`, {
       headers: {
@@ -173,9 +161,6 @@ class FrienderApi {
   }
 
 }
-
-
-
 
 
 export default FrienderApi;

@@ -6,7 +6,7 @@ import "./Navigation.css";
 /** Component for navigating
  *
  * Props:
- * - handleLogout = function run on parent
+ * - handleLogout => function run on parent
  *
  * State:
  * - none
@@ -29,24 +29,24 @@ function Navigation({ handleLogout }) {
   return (
     <div className="row">
       <nav className="Navigation bg-secondary d-flex">
-        <span className="p-2">
+        <span className="px-2">
           <NavLink exact to="/" >
             Friender Home
           </NavLink>
         </span>
-        {userData && <span className="p-2">
+        {userData && <span className="px-2">
           <NavLink exact to="/matches" >
             My Matches
           </NavLink>
         </span>
         }
         {!userData && <div>
-          <span className="p-2">
+          <span className="px-2">
             <NavLink exact to="/login" >
               Log In
             </NavLink>
           </span>
-          <span className="p-2">
+          <span className="px-2">
             <NavLink exact to="/signup" >
               Sign Up
             </NavLink>

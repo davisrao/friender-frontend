@@ -7,17 +7,31 @@ import Routes from './Routes';
 import UserContext from './UserContext';
 import Navigation from './Navigation';
 import "bootstrap/dist/css/bootstrap.css";
+import useLocalStorage from "./useLocalStorage";
+
+export const TOKEN_STORAGE_ID = "jobly-token";
 
 
+/** App component for rendering friender app
+ *
+ * props:
+ * - none
+ * 
+ * State:
+ * - userData: data of current user -- set to context
+ * - token: token assigned when login happens
+ * - isLoading: true / false
+ * 
+ * Homepage => Routes => {LoginForm}
+ */
 
 function App() {
   //piece of state that is the token
   // when token changes, update user data in context
 
   const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [isLoading, setIsLoading] = useState(true);
-  const [redirectRequired, setRedirectRequired] = useState(false);
 
   console.log("* App", { userData, token });
 
@@ -40,6 +54,9 @@ function App() {
     updateUserData();
   }, [token]);
 
+
+  /** function to register user based on form data
+   */
   async function registerUser(formData) {
     //takes form data
     //makes API  call to sign up the user
@@ -49,6 +66,8 @@ function App() {
     console.log(resp);
   }
 
+  /** function to login a user based on form data
+   */
   async function loginUser(formData) {
     //takes form data
     //makes API  call to sign up the user
@@ -70,7 +89,7 @@ function App() {
   if (isLoading) {
     return <i>Loading...</i>
   };
-  console.log("right before app.js render",userData)
+
   return (
     <div className="App container-fluid">
       <BrowserRouter>

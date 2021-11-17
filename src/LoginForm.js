@@ -23,6 +23,9 @@ function LoginForm({ loginUser }) {
     const [formData, setFormData] = useState(INITIAL_DATA);
     const [errors, setErrors] = useState(null);
 
+    console.log("*Login Form",{loginUser, formData, errors})
+
+
     /**Handle change on form*/
     function handleChange(evt) {
         const { name, value } = evt.target;

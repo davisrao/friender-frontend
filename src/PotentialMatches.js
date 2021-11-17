@@ -3,21 +3,23 @@ import FrienderApi from "./Api";
 import UserContext from "./UserContext";
 import UserCard from "./UserCard";
 
-/** Page for potential matches to show.
+/** Page for potential matches to show. renders cards of user data
  *
  * Props:
  * - none
  *
  * State:
- * - isConfirmed: true/false
- *
+ * - errors: errors on form
+ * - potentialmatchesdata: data for the users that are potential matches
+ * - isloading: true or false
+ * 
+ * Context:
+ * - userData - an object like { username, firstName, lastName, email, isAdmin}
+ * 
  * Customer -> Order -> OrderItem
  */
+
 function PotentialMatches() {
-  //get the potential matches that have the same zipcode as current user
-  //potentialMatches.map to render cards
-  //a new api route
-  //a new back end route
 
   //button like/pass - both will remove person from potentialMatches
   //viewProfile link of entire card - show the user detail component
@@ -27,7 +29,7 @@ function PotentialMatches() {
   const [isLoading, setIsLoading] = useState(true);
   const userData = useContext(UserContext);
 
-  console.log({errors,potentialMatchesData,isLoading,userData})
+  console.log("*PotentialMatches",{errors,potentialMatchesData,isLoading,userData})
 
   /**function to add action to DB */
   async function addAction(actingUserId,targetedUserId,action){
@@ -35,7 +37,7 @@ function PotentialMatches() {
     setIsLoading(true);
   }
 
-
+  /**use effect to load potential users and set to state on mounting of component */
   useEffect(function fetchPotentialsWhenMounted() {
     async function fetchPotentials() {
       console.log("userData from Potential Matches: ", userData);

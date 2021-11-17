@@ -5,11 +5,10 @@ import { useHistory } from "react-router-dom";
  * props:
  * - function to submit form (lives on parent)
  * State:
- * - formData: { firstName, lastName }
+ * - formData: {username, first, last, email, hobbies, interests, zip, image,pwd}
  * 
  * Homepage => {UserSignupForm}
  */
-
 
 function UserSignupForm({ registerUser }) {
     const history = useHistory();
@@ -40,6 +39,7 @@ function UserSignupForm({ registerUser }) {
         }));
     }
 
+    /**Handle file change on input */
     function handleFileChange(evt) {
         setFileData(evt.target.files[0]);
         handleChange(evt); //refactor: remove image key/value pair
@@ -67,6 +67,7 @@ function UserSignupForm({ registerUser }) {
         }
     }
 
+    
     return (
         <div className="row justify-content-center">
             <h1 className="m-4">Sign Up!</h1>

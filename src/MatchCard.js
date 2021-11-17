@@ -1,8 +1,21 @@
 
 import "./UserCard.css";
 
+/** Display component for a match card
+ *
+ * Props:
+ * - cardUserData: data for the card to display
+ *
+ * State: none
+ * 
+ * Context: none
+ *
+ * Customer -> Order -> OrderItem
+ */
 function MatchCard({cardUserData }) {
     
+    console.log("*MatchCard",{cardUserData})
+
     return (
         <i className="card col-2 m-3 d-inline-block justify-content-center shadow p-3 mb-5 bg-white rounded">
             <h3 className="card-title"><b>{cardUserData.first_name}</b></h3>

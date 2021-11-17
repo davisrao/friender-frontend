@@ -9,18 +9,21 @@ import MatchCard from "./MatchCard";
  * - none
  *
  * State:
- * - isConfirmed: true/false
+ * - errors: errors on page
+ * - isLoading: true/false
+ * 
+ * Context:
+ * - userData - an object like { username, firstName, lastName, email, isAdmin}
  *
  * Customer -> Order -> OrderItem
  */
 function MatchList() {
 
-  const [errors, setErrors] = useState(null);
   const [matchData, setMatchData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const userData = useContext(UserContext);
 
-  console.log({errors,matchData,isLoading,userData})
+  console.log("*MatchList",{matchData,isLoading,userData})
 
   useEffect(function fetchMatchesWhenMounted() {
     async function fetchMatches() {

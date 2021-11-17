@@ -4,17 +4,36 @@ import { faUserPlus,faUserMinus } from '@fortawesome/free-solid-svg-icons'
 import "./UserCard.css";
 import UserContext from "./UserContext";
 
+/** Component for a user card
+ *
+ * props:
+ * - addAction: function that lives on parent for handling action
+ * -cardUserData: data that this card will display
+ * 
+ * State:
+ * - none
+ * 
+ * Context:
+ * - current userData
+ * 
+ * Homepage => {UserSignupForm}
+ */
+
 function UserCard({ addAction, cardUserData }) {
     
     const userData = useContext(UserContext);
+
+    console.log("*userCards",{addAction,cardUserData,userData})
     
+    /** add action to the database: like this user */
     async function handleLike(){
         console.log("handle like ran!")
         console.log('CURR USER', userData)
         console.log("add action", {"currUser":userData.user.user_id,"likedUser": cardUserData.user_id,"Like":"Like"})
         await addAction(userData.user.user_id,cardUserData.user_id,"Like")
     };
-        
+    
+    /** add action to the database: pass on this user */
     async function handlePass(){
         console.log("handle pass ran!")
         await addAction(userData.user.user_id,cardUserData.user_id,"Pass")
