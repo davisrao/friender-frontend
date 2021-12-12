@@ -22,10 +22,6 @@ function Navigation({ handleLogout }) {
 
   const userData = useContext(UserContext);
 
-  // function handleClick(){
-  //   handleLogout();
-  // }
-
   return (
     <div className="row">
       <nav className="Navigation bg-secondary d-flex">

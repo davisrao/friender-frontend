@@ -23,7 +23,7 @@ function UserCard({ addAction, cardUserData }) {
     
     const userData = useContext(UserContext);
 
-    console.log("*userCards",{addAction,cardUserData,userData})
+    console.log("*userCard",{addAction,cardUserData,userData})
     
     /** add action to the database: like this user */
     async function handleLike(){
