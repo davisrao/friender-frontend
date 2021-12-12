@@ -1,3 +1,24 @@
+# Overview
+* Front end for a "tinder for friends" concept
+* Currently, users can sign up / log in and see potential matches in their same zip code
+* Likes or Passes are added to a db as an "action"
+
+
+# INSTALLING DEPENDENCIES:
+* git pull to get the latest code
+* install dependencies in the project using npm install 
+* npm start to spin up the react app
+
+# TODO: what would I like to do here with more time?
+* Better testing in react app - even just adding smoke tests would be good here
+* Log out btn :)
+* Messaging - when you match with somebody, you should be able to shoot them a message
+* Better structure of files
+* User editing + allow users to add multiple pictures
+* Error handling for forms better structured
+
+####
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
